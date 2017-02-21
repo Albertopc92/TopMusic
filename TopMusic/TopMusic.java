@@ -42,7 +42,7 @@ public class TopMusic {
 	 */
 	boolean addCancion(String titulo, String artista, int anno, int index) {
 			if(posicionValida(index))
-				return false;
+				return true;
 			
 			Cancion cancion = new Cancion(titulo, artista, anno);
 			if(topMusic.contains(cancion))
