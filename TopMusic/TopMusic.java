@@ -41,9 +41,6 @@ public class TopMusic {
 	 * 					false si no se ha podido añadir la cancion
 	 */
 	boolean addCancion(String titulo, String artista, int anno, int index) {
-			if(posicionValida(index))
-				return true;
-			
 			Cancion cancion = new Cancion(titulo, artista, anno);
 			if(topMusic.contains(cancion))
 				return false;
