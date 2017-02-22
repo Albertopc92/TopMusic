@@ -3,6 +3,8 @@
  */
 package listadoEstructurasDeDatos3.TopMusic;
 
+import java.util.Calendar;
+
 /**
  * @author Alberto Perez Cano
  * @version 1.0
@@ -12,10 +14,17 @@ public class Cancion {
 		private String titulo, artista;
 		private int anno;
 		
-		Cancion(String titulo, String artista, int anno){
+		private Cancion(String titulo, String artista, int anno){
 			setTitulo(titulo);
 			setArtista(artista);
 			setAnno(anno);
+		}
+		
+		static Cancion getInstance(String titulo, String artista, int anno){
+			Calendar calendar = Calendar.getInstance();
+			if(!titulo.matches("[\\w\\d\\sñÑ'-]+") || !artista.matches("[\\w\\d\\sñÑ'-]+") || anno>calendar.get(Calendar.YEAR) || anno < 1900)
+				return null;
+			return new Cancion(titulo, artista, anno);
 		}
 
 		public String getTitulo() {
@@ -41,7 +50,6 @@ public class Cancion {
 		public void setAnno(int anno) {
 			this.anno = anno;
 		}
-		
 		
 
 		@Override
