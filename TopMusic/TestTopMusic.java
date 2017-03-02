@@ -23,7 +23,7 @@ public class TestTopMusic {
 	 */
 	public static void main(String[] args) {
 
-		Menu menu = new Menu("---------- TopMusic ----------", new String[] { "Añadir cancion", "Eliminar cancion",
+		Menu menu = new Menu("\n---------- TopMusic ----------", new String[] { "Añadir cancion", "Eliminar cancion",
 				"Subir puesto", "Bajar puesto", "Mostrar lista", "Mostrar cancion mas escuchada", "Mostrar top 10" });
 
 		do {
@@ -54,7 +54,7 @@ public class TestTopMusic {
 				return;
 			}
 		} while (true);
-		
+
 	}
 
 	/**
@@ -85,30 +85,36 @@ public class TestTopMusic {
 	 * Baja la posicion de una cancion
 	 */
 	private static void downPosition() {
-		if (topMusic.downPosition(Teclado.leerEntero("Indice de la cancion:")))
+		try {
+			topMusic.downPosition(Teclado.leerEntero("Indice de la cancion:"));
 			System.out.println("Bajo una posicion");
-		else
-			System.out.println("No se pudo realizar la operacion");
+		}catch (Exception e) {
+			System.err.println(e.getMessage());
+		}
 	}
 
 	/**
 	 * Sube la posicion de una cancion en la lista
 	 */
 	private static void upPosition() {
-		if (topMusic.upPosition(Teclado.leerEntero("Indice de la cancion:")))
+		try {
+			topMusic.upPosition(Teclado.leerEntero("Indice de la cancion:"));
 			System.out.println("Subio una posicion");
-		else
-			System.out.println("No se ha podido realizar la operacion");
+		} catch (Exception e) {
+			System.err.println(e.getMessage());
+		}
 	}
 
 	/**
 	 * Elimina una cancion de la lista
 	 */
 	private static void delCancion() {
-		if (topMusic.delCancion(Teclado.leerEntero("Introduce el indice de la cancion que desea eliminar: ")))
-			System.out.println("Se ha eliminado correctamente");
-		else
-			System.out.println("No se ha podido eliminar");
+		try {
+			topMusic.delCancion(Teclado.leerEntero("Introduce el indice de la cancion que desea eliminar: "));
+			System.out.println("Se ha eliminado con exito");
+		} catch (Exception e) {
+			System.err.println(e.getMessage());
+		}
 	}
 
 	/**
@@ -116,15 +122,20 @@ public class TestTopMusic {
 	 */
 	private static void addCancion() {
 		int posicion = Teclado.leerEntero("Posicion:");
-		if (topMusic.posicionValida(posicion)) {
-			if (topMusic.addCancion(Teclado.leerCadena("Titulo:"), Teclado.leerCadena("Nombre del artista:"),
-					Teclado.leerEntero("Año:"), posicion))
-				System.out.println("Se ha añadido con exito");
-			else
-				System.out.println("No se ha podido añadir");
-		}else {
-			System.out.println("Posicion no valida");
+		try {
+			topMusic.posicionValida(posicion);
+		} catch (PosicionNoValidaException e) {
+			System.err.println(e.getMessage());
+			return;
 		}
+		try {
+			topMusic.addCancion(Teclado.leerCadena("Titulo:"), Teclado.leerCadena("Nombre del artista:"),
+					Teclado.leerEntero("Año:"), posicion);
+			System.out.println("Se ha añadido con exito");
+		} catch (Exception e) {
+			System.err.println(e.getMessage());
+		}
+
 	}
 
 }
